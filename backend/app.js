@@ -1,13 +1,16 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+
+// const mongoose = require("mongoose");
+const mysql = require('mysql');
 const userRoutes = require("./routes/user");
-const sauceRoutes = require("./routes/sauce");
+const postRoutes = require("./routes/post");
 const path = require("path");
 const helmet = require("helmet");
 app.use(helmet());
 require("dotenv").config();
+
 
 //CORS
 app.use((req, res, next) => {
@@ -23,25 +26,22 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose
-  .connect(
-    process.env.MONGOOSE,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
-  .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
-mongoose.set("useCreateIndex", true);
-//debug mod of mongoose//
-mongoose.set("debug", true);
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database : "test_db"
+});
+db.connect(function(err) {
+  if (err) throw err;
+  console.log("Connecté à la base de données MySQL!");
+});
 
 app.use(bodyParser.json());
-app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/auth", userRoutes);
-app.use("/api/sauces", sauceRoutes);
+
+// app.use("/images", express.static(path.join(__dirname, "images")));
+
+app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 
 module.exports = app;

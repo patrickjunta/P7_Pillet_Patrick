@@ -1,8 +1,4 @@
-/* Ici, vous importez le package HTTP natif de Node et l'utilisez pour créer un serveur, 
-en passant une fonction qui sera exécutée à chaque appel effectué vers ce serveur. 
-Cette fonction reçoit les objets request et response en tant qu'arguments. 
-Dans cet exemple, vous utilisez la méthode end de la réponse pour renvoyer 
-une réponse de type string à l'appelant.*/
+/* le package HTTP est natif de Node*/
 const http = require('http');
 const app = require('./app');
 
