@@ -1,14 +1,9 @@
-const mysql = require('mysql');
-
-
+const mysql = require("mysql");
 /*
-
-const userSchema = mongoose.Schema({
+const userSchema = mysql.Schema({
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
 });
 
-userSchema.plugin(uniqueValidator);
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mysql.model("User", userSchema);
 */
