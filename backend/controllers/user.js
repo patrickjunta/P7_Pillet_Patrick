@@ -5,8 +5,8 @@ const User = require("../models/User");
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
     db.query(
-      "INSERT INTO users SET ?",
-      user,
+      "INSERT INTO user (login,password) VALUES (?, ?)",
+      [req.body.login, req.body.password],
       function (error, results, fields) {
         if (error) {
           console.log(error);
