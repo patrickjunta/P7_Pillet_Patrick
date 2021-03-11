@@ -1,21 +1,26 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
+//ORM = facilitateur de requete - Object relation mapping
 
-/*
-const mongoose = require("mongoose");
-
-const sauceSchema = mongoose.Schema({
-  userId: { type: String, required: true},
-  name: { type: String, required: true },
-  manufacturer: { type: String, required: true },
-  description: { type: String, required: true },
-  mainPepper: { type: String, required: true },
-  imageUrl: { type: String, required: true },
-  heat: { type: Number, required: true },
-  likes: { type: Number, required: false },
-  dislikes: { type: Number, required: false },
-  usersLiked: { type: [String], required: false },
-  usersDisliked: { type: [String], required: false } 
+const Post = sequelize.define('Post', {
+  // Model attributes are defined here
+  titre: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  texte: {
+    type: DataTypes.STRING
+    // allowNull defaults to true
+  },
+  date: {
+    type: DataTypes.DATE
+    // allowNull defaults to true
+  }
+}, {
+  // Other model options go here
 });
+// `sequelize.define` also returns the model
+console.log(Post === sequelize.models.Post); // true
 
-module.exports = mongoose.model("Sauce", sauceSchema);
-*/
+module.exports = { Post};
